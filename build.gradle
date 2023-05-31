@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots' }
+}
+
+ext.junitJupiterVersion = '5.9.2'
+ext.jqwikVersion = '1.7.3'
+
+compileTestJava {
+    options.compilerArgs += '-parameters'
+}
+
+dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation "net.jqwik:jqwik:${jqwikVersion}"
+    testImplementation "org.assertj:assertj-core:3.23.1"
+    compileOnly("org.jetbrains:annotations:23.0.0")
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'jqwik'
+        includeEngines 'junit-jupiter'
+    }
+
+    include '**/*Properties.class'
+    include '**/*Test.class'
+    include '**/*Tests.class'
+
+}
