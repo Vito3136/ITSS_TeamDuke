@@ -21,20 +21,32 @@ public class ArraySumTest {
     @StatisticsReport(format = Histogram.class)
     void valueGreaterOrEqualsThanSum(
 
-            @ForAll @IntRange(min = 1, max = 50) int valueRandom,
+            @ForAll @IntRange(min = 100, max = 150) int valueRandom,
             @ForAll @Size(value = 10) List<@IntRange(min = 1, max = 10) Integer> listNumbers) {
 
         int[] array = convertListToArray(listNumbers);
-        int sum = 0;
-        for(int i = 0; i < 10; i++) {
-            sum = sum + array[i];
-        }
-        int value = sum + valueRandom;
 
-        assertEquals(ArraySumClass.arraySum(value, array), 1);
-        Statistics.collect(sum);
-        /*Statistics.collect(valueRandom);
-        Statistics.collect(value);*/
+        assertEquals(ArraySumClass.arraySum(valueRandom, array), true);
+
+        Statistics.label("prova1").collect(valueRandom);
+        Statistics.label("prova2").collect(listNumbers);
+
+    }
+
+    @Property
+    @Report(Reporting.GENERATED)
+    @StatisticsReport(format = Histogram.class)
+    void valueMinorThanSum(
+
+            @ForAll @IntRange(min = -50, max = 9) int valueRandom,
+            @ForAll @Size(value = 10) List<@IntRange(min = 1, max = 10) Integer> listNumbers) {
+
+        int[] array = convertListToArray(listNumbers);
+
+        assertEquals(ArraySumClass.arraySum(valueRandom, array), false);
+
+        Statistics.collect(valueRandom);
+        Statistics.collect(listNumbers);
 
     }
 

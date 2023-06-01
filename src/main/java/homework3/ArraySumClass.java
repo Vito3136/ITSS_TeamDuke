@@ -2,7 +2,7 @@ package homework3;
 
 public class ArraySumClass {
 
-    public static int arraySum(int value, int[] array) {
+    public static boolean arraySum(int value, int[] array) {
 
         if(array == null) {
             throw new IllegalArgumentException();
@@ -15,10 +15,10 @@ public class ArraySumClass {
         }
 
         if(value >= sum) {
-            return 1;
+            return true;
         }
         else {
-            return -1;
+            return false;
         }
 
     }
