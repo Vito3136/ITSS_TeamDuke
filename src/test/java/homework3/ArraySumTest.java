@@ -28,8 +28,8 @@ public class ArraySumTest {
 
         assertEquals(ArraySumClass.arraySum(valueRandom, array), true);
 
-        Statistics.label("prova1").collect(valueRandom);
-        Statistics.label("prova2").collect(listNumbers);
+        Statistics.label("valueRandom").collect(valueRandom);
+        Statistics.label("listNumbers").collect(listNumbers);
 
     }
 
@@ -38,15 +38,15 @@ public class ArraySumTest {
     @StatisticsReport(format = Histogram.class)
     void valueMinorThanSum(
 
-            @ForAll @IntRange(min = -50, max = 9) int valueRandom,
+            @ForAll @IntRange(min = -40, max = 9) int valueRandom,
             @ForAll @Size(value = 10) List<@IntRange(min = 1, max = 10) Integer> listNumbers) {
 
         int[] array = convertListToArray(listNumbers);
 
         assertEquals(ArraySumClass.arraySum(valueRandom, array), false);
 
-        Statistics.collect(valueRandom);
-        Statistics.collect(listNumbers);
+        Statistics.label("valueRandom").collect(valueRandom);
+        Statistics.label("listNumbers").collect(listNumbers);
 
     }
 
